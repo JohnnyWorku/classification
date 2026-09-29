@@ -28,6 +28,8 @@ for input_file in input_files:
     
     output_len = len(df)
     
+    updated_input_name = input_file.replace(".csv", "")
+    
     output_file = f"{input_file}_updated.csv"
     df.to_csv(output_file, index=False)
         
