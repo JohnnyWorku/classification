@@ -32,7 +32,7 @@ class SoftVotingModel:
         
         return self
     
-    def predit(self, X):
+    def predict(self, X):
         prediction = self.soft_voting_model.predict(X)
         
         return prediction
