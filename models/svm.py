@@ -1,14 +1,20 @@
-from sklearn.svm import SVC
+from sklearn.calibration import CalibratedClassifierCV
+from sklearn.svm import LinearSVC
 
 
 class SVMModel:
     def __init__(self, kernel="rbf", C=1.0, random_state=42):
-        self.svm_model = SVC (
-            kernel=kernel,
+        self.base_svm = LinearSVC (
             C=C,
-            probability=True,   # probability=True is REQUIRED for Soft Voting and Stacking Probabilities
-            class_weight="balanced",
+            dual="auto",
+            max_iter=2000,
             random_state=random_state,
+        )
+        
+        self.svm_mode = CalibratedClassifierCV (
+            estimator=self.base_svm,
+            ensemble=False,
+            n_jobs=-1,
         )
         
         
