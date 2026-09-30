@@ -36,14 +36,14 @@ def main():
 
     logger.info("Extracting features using feature engineering functions...")
     # Extract feature representations (returns tuples of (X_train, X_dev, X_test))
-    # aac_features = get_aac_features(X_train_raw, y_train, X_dev_raw, X_test_raw)
-    dipep_features = get_dipeptide_features(X_train_raw, y_train, X_dev_raw, X_test_raw)
+    aac_features = get_aac_features(X_train_raw, y_train, X_dev_raw, X_test_raw)
+    # dipep_features = get_dipeptide_features(X_train_raw, y_train, X_dev_raw, X_test_raw)
     # tripep_features = get_tripeptide_frequency(X_train_raw, y_train, X_dev_raw, X_test_raw)
     # embed_features = get_svd_embedding_features(X_train_raw, ytrain, X_dev_raw, X_test_raw)
 
     feature_extractors = [
-        # ("AAC", aac_features),
-        ("Dipeptide", dipep_features),
+        ("AAC", aac_features),
+        # ("Dipeptide", dipep_features),
         # ("Tripeptide", tripep_features),
         # ("SVD Embedding", embed_features),
     ]
