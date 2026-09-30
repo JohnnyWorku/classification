@@ -1,5 +1,5 @@
 from sklearn.ensemble import RandomForestClassifier
-
+from sklearn.decomposition import PCA
 
 class RandomForestModel:
     def __init__(self, n_estimators=100, max_depth=25, random_state=42):
@@ -8,13 +8,16 @@ class RandomForestModel:
                     max_depth=max_depth,
                     min_samples_split=5,
                     class_weight="balanced",
-                    n_jobs=-1,
+                    n_jobs=4,
                     random_state=random_state,
                 )
     
     
     def fit(self, X, y):
-        self.rf_model.fit(X, y)
+        pca = PCA(0.95)
+        X_pca = pca.fit(X)
+        
+        self.rf_model.fit(X_pca, y)
         
         print("Random forest model trained successfully")
         

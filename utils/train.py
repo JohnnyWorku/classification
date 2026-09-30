@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from metrics.evaluation_metrics import (
+from utils.evaluation_metrics import (
     accuracy_metric,
     macro_f1_metric,
     mattews_corrcoef_metric,

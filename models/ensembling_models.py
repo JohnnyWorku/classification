@@ -45,8 +45,10 @@ class StackingModel:
         self.stacking_model = StackingClassifier (
             estimators=base_estimators,
             final_estimator=meta_classifier,
-            cv=5,
+            cv=3,
             stack_method="predict_proba",
+            n_jobs=4,
+            passthrough=False,
         )
         
     def fit(self, X, y):

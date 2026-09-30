@@ -1,4 +1,5 @@
 from lightgbm import LGBMClassifier
+from sklearn.decomposition import PCA
 
 
 class LightGBMModel:
@@ -7,14 +8,17 @@ class LightGBMModel:
             n_estimators=n_estimators,
             learning_rate=learning_rate,
             class_weight="balanced",
-            n_jobs=-1,
+            n_jobs=4,
             random_state=random_state,
             verbose=-1
         )
         
         
     def fit(self, X, y):
-        self.lightgbm_model.fit(X, y)
+        pca = PCA(0.95)
+        X_pca = pca.fit(X)
+        
+        self.lightgbm_model.fit(X_pca, y)
         
         print("LightGBM model trained successfully!")
         

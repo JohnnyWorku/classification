@@ -36,14 +36,14 @@ def main():
 
     logger.info("Extracting features using feature engineering functions...")
     # Extract feature representations (returns tuples of (X_train, X_dev, X_test))
-    aac_features = get_aac_features(X_train_raw, y_train, X_dev_raw, X_test_raw)
-    # dipep_features = get_dipeptide_features(X_train_raw, X_dev_raw, X_test_raw)
+    # aac_features = get_aac_features(X_train_raw, y_train, X_dev_raw, X_test_raw)
+    dipep_features = get_dipeptide_features(X_train_raw, y_train, X_dev_raw, X_test_raw)
     # tripep_features = get_tripeptide_frequency(X_train_raw, y_train, X_dev_raw, X_test_raw)
-    # embed_features = get_svd_embedding_features(X_train_raw, X_dev_raw, X_test_raw)
+    # embed_features = get_svd_embedding_features(X_train_raw, ytrain, X_dev_raw, X_test_raw)
 
     feature_extractors = [
-        ("AAC", aac_features),
-        # ("Dipeptide", dipep_features),
+        # ("AAC", aac_features),
+        ("Dipeptide", dipep_features),
         # ("Tripeptide", tripep_features),
         # ("SVD Embedding", embed_features),
     ]
@@ -51,7 +51,7 @@ def main():
     # Initialize Base Model Wrappers
     rf_wrapper = RandomForestModel(n_estimators=100, max_depth=25, random_state=42)
     lgb_wrapper = LightGBMModel(n_estimators=100, learning_rate=0.05, random_state=42)
-    svm_wrapper = SVMModel(kernel="rbf", C=1.0, random_state=42)
+    svm_wrapper = SVMModel(C=1.0, random_state=42)
 
     base_estimators = [
         ("rf", rf_wrapper.rf_model),
