@@ -135,12 +135,3 @@ Key contributions include:
 - Systematic evaluation across diverse metrics
 
 Future work should incorporate hyperparameter optimization, cross-validation assessment, and exploration of deep learning approaches (e.g., sequence transformers). Integration with structural features and transfer learning from large pre-trained models could further improve performance.
-
-## 10. References
-
-1. ENZYME database: The enzyme information system. https://enzyme.expasy.org/
-2. Pedregosa, F., et al. (2011). Scikit-learn: Machine Learning in Python. Journal of Machine Learning Research, 12, 2825-2830.
-3. Ke, G., et al. (2017). LightGBM: A Fast, Distributed, Gradient Boosting Framework. In Advances in Neural Information Processing Systems (pp. 3146-3154).
-4. Vapnik, V. (1995). The Nature of Statistical Learning Theory. Springer-Verlag.
-5. Wolpert, D. H. (1992). Stacked Generalization. Neural Networks, 5(2), 241-259.
-6. The UniProt Consortium. (2021). UniProt: the universal protein knowledgebase in 2021. Nucleic Acids Research, 49(D1), D480-D489.
