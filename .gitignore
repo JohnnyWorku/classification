@@ -1,4 +1,6 @@
 .venv/
 __pycache__/
-*.csv
+**/*.csv
 pipeline.log
+results/
+cache/
