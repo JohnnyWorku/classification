@@ -174,6 +174,79 @@ This will:
 - save metrics and plots under `results/`
 - cache extracted features under `cache/`
 
+## How a user can use this project
+
+This repository is primarily a research and benchmarking pipeline, not a packaged web app or CLI tool. A user typically uses it in one of these ways:
+
+### Option 1: Run the full experiment on your own dataset
+
+1. Put your protein sequence data into CSV files in `data/processed/`.
+2. Ensure each file has a `seq` column and a `main_ec` column.
+3. Run:
+
+```bash
+python main.py
+```
+
+4. Review the output in `results/` and `cache/`.
+
+This is the easiest path if you want to replicate the project or benchmark different feature representations.
+
+### Option 2: Evaluate a specific feature representation
+
+If you want to experiment with one feature type, edit `FEATURES_TO_RUN` in `main.py` to a smaller list, for example:
+
+```python
+FEATURES_TO_RUN = ["AAC"]
+```
+
+or:
+
+```python
+FEATURES_TO_RUN = ["Combined"]
+```
+
+Then run:
+
+```bash
+python main.py
+```
+
+This is useful when you want a faster iteration while tuning feature engineering or comparing models.
+
+### Option 3: Use the feature-generation utilities in a custom script
+
+The repository already exposes feature builders in `data/feature_engineering.py`, so a user can import them into their own Python script:
+
+```python
+from data.feature_engineering import get_aac_features, get_dipeptide_features
+
+# X_train_raw, X_dev_raw, X_test_raw are sequence arrays
+# y_train is the EC label vector
+X_train, X_dev, X_test = get_aac_features(
+    X_train_raw, y_train, X_dev_raw, X_test_raw, return_names=True
+)
+```
+
+This approach is helpful if you want to embed the repo’s feature extraction logic into a larger pipeline or notebook.
+
+### Option 4: Extend the model stack
+
+If you want to compare your own classifier, add it to `BASE_MODEL_FACTORIES` inside `main.py` and reuse the existing evaluation workflow from `utils/train.py`.
+
+Example:
+
+```python
+BASE_MODEL_FACTORIES = {
+    "rf": lambda: RandomForestModel(...),
+    "lgb": lambda: LightGBMModel(...),
+    "svm": lambda: SVMModel(...),
+    "my_model": lambda: MyCustomClassifier(...),
+}
+```
+
+This lets a user plug a new model into the same workflow without rewriting the evaluation pipeline.
+
 ## Outputs
 
 The project writes outputs into the `results/` directory, with results organized by feature type (for example, `aac`, `dipeptide`, `tripeptide`, `combined`, `svd_embedding`).
