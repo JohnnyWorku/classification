@@ -2,7 +2,7 @@
 
 A machine learning project for predicting Enzyme Commission (EC) classes from protein sequences. The repository builds sequence-based feature representations, trains multiple classifiers, combines them with ensemble strategies, and evaluates them on held-out data.
 
-This work is designed around the SwissProt-EC dataset and evaluates several feature-model combinations to identify the most reliable setup for multi-class enzyme classification.
+This project is intended for research and experimentation: it is not a packaged web app or a user-facing API. Instead, a user can prepare sequence data, run the training pipeline, and inspect the generated metrics and plots for different feature configurations and model ensembles.
 
 ## Project overview
 
