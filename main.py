@@ -22,7 +22,7 @@ CACHE_DIR = Path("cache")
 RESULTS_DIR = Path("results")
 
 # Start with ["AAC"] as a quick smoke test, then add the others one at a time.
-FEATURES_TO_RUN = ["AAC"]
+FEATURES_TO_RUN = ["AAC", "Dipeptide", "Tripeptide", "Combined", "SVD Embedding"]
 # e.g. ["AAC", "Dipeptide", "Tripeptide", "Combined", "SVD Embedding"]
 
 # While developing on limited hardware, set e.g. 0.1 to train on a stratified 10% of train.
@@ -116,11 +116,11 @@ def main():
             "Test Accuracy": best_row["Accuracy"],
         })
 
-    summary_df = pd.DataFrame(summary)
-    RESULTS_DIR.mkdir(exist_ok=True)
-    summary_df.to_csv(RESULTS_DIR / f"summary_{tag}.csv", index=False)
-    logger.info("================ Summary across feature sets ================\n%s",
-                summary_df.round(4).to_string(index=False))
+        summary_df = pd.DataFrame(summary)
+        RESULTS_DIR.mkdir(exist_ok=True)
+        summary_df.to_csv(RESULTS_DIR / f"{feature_name}_summary_{tag}.csv", index=False)
+        logger.info("================ Summary across feature sets ================\n%s",
+                    summary_df.round(4).to_string(index=False))
 
 
 if __name__ == "__main__":
