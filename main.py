@@ -22,8 +22,8 @@ CACHE_DIR = Path("cache")
 RESULTS_DIR = Path("results")
 
 # Start with ["AAC"] as a quick smoke test, then add the others one at a time.
-FEATURES_TO_RUN = ["AAC", "Dipeptide", "Tripeptide", "Combined", "SVD Embedding"]
-# e.g. ["AAC", "Dipeptide", "Tripeptide", "Combined", "SVD Embedding"]
+FEATURES_TO_RUN = ["AAC"]
+# available_features = ["AAC", "Dipeptide", "Tripeptide", "Combined", "SVD Embedding"]
 
 # While developing on limited hardware, set e.g. 0.1 to train on a stratified 10% of train.
 # Dev and test are never subsampled. Set to None for the final full run.
@@ -105,22 +105,22 @@ def main():
             output_dir=RESULTS_DIR,
         )
 
-        best = outcome["best_model"]
-        best_row = outcome["test_results"].set_index("Model").loc[best]
-        summary.append({
-            "Features": feature_name,
-            "Best model (chosen on dev)": best,
-            "Test Macro F1": best_row["Macro F1"],
-            "Test MCC": best_row["MCC"],
-            "Test AUPRC": best_row["AUPRC (macro)"],
-            "Test Accuracy": best_row["Accuracy"],
-        })
+    best = outcome["best_model"]
+    best_row = outcome["test_results"].set_index("Model").loc[best]
+    summary.append({
+        "Features": feature_name,
+        "Best model (chosen on dev)": best,
+        "Test Macro F1": best_row["Macro F1"],
+        "Test MCC": best_row["MCC"],
+        "Test AUPRC": best_row["AUPRC (macro)"],
+        "Test Accuracy": best_row["Accuracy"],
+    })
 
-        summary_df = pd.DataFrame(summary)
-        RESULTS_DIR.mkdir(exist_ok=True)
-        summary_df.to_csv(RESULTS_DIR / f"{feature_name}_summary_{tag}.csv", index=False)
-        logger.info("================ Summary across feature sets ================\n%s",
-                    summary_df.round(4).to_string(index=False))
+    summary_df = pd.DataFrame(summary)
+    RESULTS_DIR.mkdir(exist_ok=True)
+    summary_df.to_csv(RESULTS_DIR / f"{feature_name}_summary_{tag}.csv", index=False)
+    logger.info("================ Summary across feature sets ================\n%s",
+                summary_df.round(4).to_string(index=False))
 
 
 if __name__ == "__main__":
